@@ -22,6 +22,8 @@ demandado en despliegues empresariales de 2026: RAG con grounding real, no
 "chateá con tu PDF". El dominio (Monotributo argentino) se eligió a
 propósito acotado — ver [`CLAUDE.md`](./CLAUDE.md) para el porqué.
 
+Frontend (PWA instalable, SvelteKit): [github.com/Ferchulobo777/vigente-web](https://github.com/Ferchulobo777/vigente-web).
+
 ## Índice
 
 - [Qué tiene](#qué-tiene)
