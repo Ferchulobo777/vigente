@@ -2,6 +2,7 @@ from unittest.mock import patch
 
 from fastapi.testclient import TestClient
 
+from app.generation import GenerationError
 from app.main import app
 from app.retrieval import RetrievedChunk
 
@@ -49,6 +50,21 @@ def test_ask_returns_grounded_answer_with_citations_when_relevant_chunk_found():
     assert len(body["citations"]) == 1
     assert body["citations"][0]["label"] == "Artículo 4°"
     assert "Artículo 4°" in body["answer"]
+
+
+def test_ask_returns_clean_503_when_claude_call_fails_instead_of_crashing():
+    """Bug real encontrado probando el flujo con ANTHROPIC_API_KEY vacía: sin
+    este manejo, la excepción cruda de la librería anthropic escalaba hasta
+    un 500 con stack trace completo en la respuesta HTTP."""
+    with (
+        patch("app.routers.ask.retrieve", return_value=[_GOOD_CHUNK]),
+        patch("app.routers.ask.generate_answer", side_effect=GenerationError("sin API key")),
+    ):
+        response = client.post("/api/v1/ask", json={"question": "¿Qué necesito para adherirme?"})
+
+    assert response.status_code == 503
+    assert "stack" not in response.text.lower()
+    assert "traceback" not in response.text.lower()
 
 
 def test_ask_rejects_questions_shorter_than_3_characters():

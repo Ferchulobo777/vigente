@@ -1,9 +1,9 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app.config import get_settings
 from app.db import get_db
-from app.generation import generate_answer
+from app.generation import GenerationError, generate_answer
 from app.retrieval import retrieve
 from app.schemas import AskRequest, AskResponse, Citation
 
@@ -24,7 +24,13 @@ def ask(payload: AskRequest, db: Session = Depends(get_db)) -> AskResponse:
     if not relevant:
         return AskResponse(answer=_NO_SOURCE_ANSWER, citations=[], grounded=False)
 
-    answer = generate_answer(payload.question, relevant)
+    try:
+        answer = generate_answer(payload.question, relevant)
+    except GenerationError as exc:
+        raise HTTPException(
+            status_code=503,
+            detail="El servicio de generación no está disponible en este momento. Intentá de nuevo más tarde.",
+        ) from exc
     citations = [
         Citation(label=c.label, document_title=c.document_title, url=c.url, similarity=round(c.similarity, 3))
         for c in relevant
