@@ -1,0 +1,10 @@
+{"question": "¿Qué trámite tengo que hacer antes de darme de alta en el monotributo?", "expected_label": "Artículo 4°"}
+{"question": "¿Cómo se formaliza la adhesión al Régimen Simplificado?", "expected_label": "Artículo 5°"}
+{"question": "¿Cuándo tengo que recategorizarme?", "expected_label": "Artículo 20°"}
+{"question": "¿Hasta qué día del mes puedo pagar la cuota del monotributo?", "expected_label": "Artículo 35°"}
+{"question": "¿Qué pasa si no cumplo con la recategorización semestral?", "expected_label": "Artículo 21°"}
+{"question": "¿Con qué medios de pago puedo pagar la cuota mensual?", "expected_label": "Artículo 36°"}
+{"question": "¿Qué comprobantes tengo que emitir como monotributista?", "expected_label": "Artículo 47°"}
+{"question": "¿Cuánto tengo que pagar por mes si estoy en categoría F prestando servicios?", "expected_label": "Categoría F"}
+{"question": "¿Cuál es el tope de facturación anual de la categoría A?", "expected_label": "Categoría A"}
+{"question": "¿Cuál es la categoría con el tope de facturación más alto?", "expected_label": "Categoría K"}

@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: vigente-api
+    runtime: docker
+    plan: free
+    envVars:
+      - key: DATABASE_URL
+        sync: false # connection string de Neon, pegada a mano
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: EMBEDDING_MODEL
+        value: intfloat/multilingual-e5-small
